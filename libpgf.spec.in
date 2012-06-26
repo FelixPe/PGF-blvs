@@ -1,0 +1,91 @@
+%define name     @PACKAGE@
+%define ver      @VERSION@
+%define prefix   /usr
+%define datadir  %{prefix}/share
+%define pkgname %{name}-%{ver}
+
+Summary: PGF (Progressive Graphics File) library
+Name: %{name}
+Version: %{ver}
+Vendor: TODO (www.libpgf.org)
+Release: %{rpm_release}
+License: LGPL
+Group: System Environment/Libraries
+URL: http://www.libpgf.org
+Source: ftp://www.libpgf.org/pub/%name/%{pkgname}.tar.gz
+BuildRoot: /var/tmp/%{pkgname}-%{user}/
+Docdir: %{datadir}/doc/
+
+
+%description
+libpgf is a library for working with PGF (Progresive Graphics File) images.
+
+# This is the summary for the devel rpm
+%package devel
+Summary: Include files, libraries and documentation for development
+Requires: %{name} = %{ver}
+Group: Development/Libraries
+
+# This is the description for the devel package
+%description devel
+libpgf is a library for working with PGF (Progresive Graphics File) images.
+
+%prep
+
+%setup 
+CFLAGS=$RPM_OPT_FLAGS ./configure %{extra_configure_options}  --prefix=%{prefix}
+
+%build
+make 
+
+      
+%install
+if test "/" != %{buildroot}; then 
+	rm -rf %{buildroot};
+else
+     echo "buildroot set to /, not deleting!";
+fi;
+%makeinstall
+
+
+%clean
+if test "/" != %{buildroot}; then 
+	rm -rf %{buildroot};
+else
+     echo "buildroot set to /, not deleting!";
+fi;
+
+# Since this is a library, we should run ldconfig
+# after installation and un-installation
+%post -p /sbin/ldconfig
+
+%postun -p /sbin/ldconfig
+
+# These are all files which make up the rpm
+# Shell globbing may be used
+%files
+%defattr(-, root, root)
+%{prefix}/lib/libpgf.so.*
+
+# The files which go in the devel package
+%files devel
+%defattr(-, root, root)
+
+%{prefix}/include/libpgf/*
+%{prefix}/lib/libpgf.a
+%{prefix}/lib/libpgf.so
+%{prefix}/lib/libpgf.la
+%{prefix}/lib/pkgconfig/@PACKAGE@.pc
+
+%{datadir}/doc/%{name}-%{ver}/html/*
+%{datadir}/man/man3/*
+
+
+# This is a changelog for the RPM ONLY!
+%changelog
+
+* Mon May 29 2005 Thomas Sondergaard <ts@medical-insight.com>  
+  initial spec file created from template
+
+
+

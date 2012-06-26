@@ -1,0 +1,35 @@
+/*
+ * The Progressive Graphics File; http://www.libpgf.org
+ * 
+ * $Date: 2006-05-09 18:09:51 +0000 (Di, 09 Mai 2006) $
+ * $Revision: 186 $
+ * 
+ * This file Copyright (C) 2006 xeraina GmbH, Switzerland
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU LESSER GENERAL PUBLIC LICENSE
+ * as published by the Free Software Foundation; either version 2.1
+ * of the License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+ 
+ Remark: The make process uses libtool.
+ 
+ To compile and install the library, do the following:
+ 1.		'./configure' 
+ 1.2	'./configure --help' : gives you more information
+ 2		'make' : will compile a shared and a static library 
+ 3. 	Install the library: make install
+ 
+ Note:	As this build process uses libtool there is a library interface created by 
+ 		libtool. This interface is libpgf.la, the static library itself is in libpgf.a
+ 		and the shared library iteslf is in libpgf.so.x.y. All these files are needed.
+ 		For more information see: http://www.gnu.org/software/libtool
